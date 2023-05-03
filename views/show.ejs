@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VIEW COMMENT</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <h1>VIEW COMMENT</h1>
+  <h2>
+    <%= comment.note %>
+  </h2>
+  <div class="list-group">
+    <div class="list-group-item list-group-item-action">
+      <b>
+        <%= comment.time %>:
+      </b>
+      <em>
+        <%= comment.note %>
+      </em>
+    </div>
+  </div>
+  <a href="/comments/<%= comment._id %>/edit" class="btn btn-outline-primary">EDIT COMMENT</a>
+  <a href="/comments" class="btn btn-outline-success">ALL COMMENTS</a>
+  <form action="/comments/<%= comment._id %>?_method=DELETE" method="POST">
+    <button type="submit" class="btn btn-outline-warning">DELETE COMMENT</button>
+  </form>
+</body>
+
+</html>

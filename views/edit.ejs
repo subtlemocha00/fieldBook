@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDIT COMMENT</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <h1>EDIT COMMENT</h1>
+  <form action="/comments/<%= comment._id %>?_method=PUT" method="POST" class="input-group">
+    <button type="submit" class="btn btn-outline-primary input-group-prepend">Save Comment</button>
+    <textarea name="note" class="form-control" aria-label="Note" autofocus><%= comment.note %></textarea>
+  </form>
+  <a href="/comments/<%= comment._id %>" class="btn btn-outline-success">BACK</a>
+  <a href="/comments" class="btn btn-outline-success">ALL COMMENTS</a>
+</body>
+
+</html>

@@ -1,0 +1,8 @@
+HOME PAGE:
+-FIELD BOOK
+SELECT JOB [dropdown menu with all past and current jobs]
+// upon selection, update page with a list of all DATES
+-DATES [dropdown menu with all previous dates]
+// upon selection, open comments page for that DATE
+-COMMENTS
+show a list of the comment entries in chronological order

@@ -1,0 +1,30 @@
+{
+  "name": "fieldbook",
+  "version": "1.0.0",
+  "description": "a field book for civil construction projects. can take notes, photos and can process field survey data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fieldbook",
+    "survey",
+    "surveying",
+    "field",
+    "book",
+    "civil",
+    "engineering",
+    "construction",
+    "inspection"
+  ],
+  "author": "k turley",
+  "license": "ISC",
+  "dependencies": {
+    "date-and-time": "^3.0.0",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "method-override": "^3.0.0",
+    "mongoose": "^7.0.5",
+    "uuid": "^9.0.0"
+  }
+}
