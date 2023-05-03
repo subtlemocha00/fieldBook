@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const jobInfoSchema = new mongoose.Schema({
-  jobName: String,
-  jobNumber: String,
-  jobLocation: String,
+  name: String,
+  number: String,
+  location: String,
   contractor: String,
   startDate: String,
   endDate: String

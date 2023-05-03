@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const Fieldnote = require('../models/fieldnote');
 const JobInfo = require('../models/jobInfo');
-const { notes, jobs } = require('./seeds');
+const notes = require('./fieldNoteSeeds');
+const jobs = require('./jobInfoSeeds')
 
 mongoose.connect('mongodb://127.0.0.1:27017/field-book')
   .then(() => {
@@ -20,7 +21,8 @@ const seedDb = async () => {
     await newNote.save();
   }
   for (job of jobs) {
-    
+    const newJob = new JobInfo(job)
+    await newJob.save();
   }
 }
 

@@ -8,6 +8,7 @@ const date = require('date-and-time');
 // const time = require('timeLibrary');
 
 const Fieldnote = require('./models/fieldnote')
+const JobInfo = require('./models/jobInfo');
 
 mongoose.connect('mongodb://127.0.0.1:27017/field-book')
 	.then(() => {
@@ -47,8 +48,9 @@ app.post('/comments', async (req, res) => {
 	}
 })
 
-app.get('/comment/jobs', (req, res) => {
-	res.render('jobs')
+app.get('/jobs', async (req, res) => {
+	const jobs = await JobInfo.find({})
+	res.render('jobs', { jobs })
 })
 
 app.get('/comments/new', (req, res) => {
