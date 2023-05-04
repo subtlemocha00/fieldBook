@@ -14,11 +14,14 @@
   <h1>JOBS</h1>
   <ul class="list-group">
     <% for(job of jobs){%>
-      <li class="list-group-item list-group-item-action">
-        <%= job.name %>- <%= job.location %>
-      </li>
+      <a href="/jobs/<%=job._id%>/comments">
+        <li class="list-group-item list-group-item-action">
+          <%= job.name %>- <%= job.location %>
+        </li>
+      </a>
       <% }%>
   </ul>
+  <!-- <a href="/jobs" class="btn btn-outline-primary">HOME</a> -->
 </body>
 
 </html>

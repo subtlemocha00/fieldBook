@@ -26,18 +26,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-app.get('/comments', async (req, res) => {
+app.get('/jobs', async (req, res) => {
+	const jobs = await JobInfo.find({})
+	res.render('jobs', { jobs })
+})
+
+app.get('/jobs/:id/comments', async (req, res) => {
+	const { id } = req.params;
+	const job = await JobInfo.findById(id);
 	const comments = await Fieldnote.find({})
-	res.render('commentPage', { comments })
+	res.render(`commentPage`, { comments, job });
 })
 
 app.post('/comments', async (req, res) => {
 	const note = req.body.note;
 	if (note) {
-		// work out adding timestamps and dates later
 		const now = new Date();
 
-		const newFieldnote = new Fieldnote({ note: note, date: date.format(now, 'YYYY/MM/DD'), time: date.format(now, 'HH:mm:ss'), location: 'ABC Street' })
+		const newFieldnote = new Fieldnote({ note: note, date: date.format(now, 'YYYY/MM/DD'), time: date.format(now, 'H:mm A'), location: 'ABC Street' })
 		await newFieldnote.save();
 		console.log(newFieldnote)
 		const comments = await Fieldnote.find({})
@@ -48,19 +54,16 @@ app.post('/comments', async (req, res) => {
 	}
 })
 
-app.get('/jobs', async (req, res) => {
-	const jobs = await JobInfo.find({})
-	res.render('jobs', { jobs })
-})
-
-app.get('/comments/new', (req, res) => {
-	res.render('new');
-})
-
 app.get('/comments/:id', async (req, res) => {
-	const { id } = req.params;
-	const comment = await Fieldnote.findById(id);
-	res.render(`show`, { comment });
+	const { id } = req.params
+	const comment = await Fieldnote.findById(id)
+	const job = await JobInfo.findOne({ number: comment.number })
+	console.log(job)
+	res.render('show', { comment, job })
+})
+
+app.get('/jobs/:id/comments/new', (req, res) => {
+	res.render('new');
 })
 
 app.get('/comments/:id/edit', async (req, res) => {

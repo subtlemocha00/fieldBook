@@ -14,20 +14,22 @@
   <h1>COMMENTS</h1>
   <ul class="list-group">
     <% for(comment of comments) {%>
-      <a href="/comments/<%= comment.id %>">
-        <li class="list-group-item list-group-item-action">
-          <b>
-            <%= comment.time %>:
-          </b>
-          <em>
-            <%= comment.note %>
-          </em>
-        </li>
-      </a>
-      <% } %>
+      <% if(comment.number===job.number) { %>
+        <a href="/comments/<%= comment._id %>">
+          <li class="list-group-item list-group-item-action">
+            <b>
+              <%= comment.time %> -
+            </b>
+            <em>
+              <%= comment.note %>
+            </em>
+          </li>
+        </a>
+        <% } %>
+          <% } %>
   </ul>
-  <a href="/comments/new" class="btn btn-outline-primary">Add Comment</a>
-  <a href="/jobs" class="btn btn-outline-primary">Job Information</a>
+  <a href="/comments/new" class="btn btn-outline-primary">ADD</a>
+  <a href="/jobs" class="btn btn-outline-primary">BACK TO JOBS</a>
 </body>
 
 </html>

@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const fieldNoteSchema = new mongoose.Schema({
+  number: {
+    type: String,
+    required: true
+  },
   note: {
     type: String,
     required: true

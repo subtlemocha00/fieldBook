@@ -6,7 +6,8 @@ const jobInfoSchema = new mongoose.Schema({
   location: String,
   contractor: String,
   startDate: String,
-  endDate: String
+  endDate: String,
+  comments: { type: Array, required: false }
 })
 
 const JobInfo = mongoose.model('jobInfo', jobInfoSchema);
