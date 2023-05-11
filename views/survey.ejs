@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SURVEY</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <h1>SURVEY - Job Number: <%= job.number %>
+  </h1>
+  <form action="/jobs/<%= job._id %>/survey" method="POST">
+    <table>
+      <thead>
+        <tr>
+          <th>Point</th>
+          <th>HI</th>
+          <th>BS</th>
+          <th>FS</th>
+          <th>Top of Pipe</th>
+          <th>Invert Elevation</th>
+          <th>Notes</th>
+        </tr>
+        <!-- <form action="/jobs/<%= job._id %>/survey" method="POST"> -->
+        <tr>
+          <td><input id="benchmark" name="benchmark" type="text" placeholder="Benchmark Elevation"></td>
+          <td></td>
+          <td></td>
+          <td><input name="bmForesight" type="text" placeholder="Foresight"></td>
+          <td></td>
+          <td><input name="bmElevation" type="text" placeholder="Benchmark Elevation"></td>
+          <td></td>
+        </tr>
+        <!-- </form> -->
+      </thead>
+
+      <tbody>
+        <tr>
+          <td><input name="point" type="text"></td>
+          <td></td>
+          <td><input name="backsight" type="text"></td>
+          <td><input name="foresight" type="text"></td>
+          <td></td>
+          <td><input name="elevation" type="text"></td>
+          <td><input name="notes" type="text"></td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-outline-primary" type="submit">CONFIRM BENCHMARK</button>
+    <button class="btn btn-outline-primary" type="submit">ADD LINE</button>
+  </form>
+
+
+</body>
+
+</html>

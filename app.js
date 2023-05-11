@@ -5,10 +5,11 @@ const path = require('path');
 const mongoose = require('mongoose')
 const methodOverride = require('method-override');
 const date = require('date-and-time');
-// const time = require('timeLibrary');
 
-const Fieldnote = require('./models/fieldnote')
+const Fieldnote = require('./models/fieldnote');
+const Surveynote = require('./models/surveynote');
 const JobInfo = require('./models/jobInfo');
+const SurveyHeader = require('./models/surveyheader');
 
 mongoose.connect('mongodb://127.0.0.1:27017/field-book')
 	.then(() => {
@@ -35,23 +36,32 @@ app.get('/jobs/:id/comments', async (req, res) => {
 	const { id } = req.params;
 	const job = await JobInfo.findById(id);
 	const comments = await Fieldnote.find({})
-	res.render(`commentPage`, { comments, job });
+	res.render(`comments`, { comments, job });
 })
 
-app.post('/comments', async (req, res) => {
+app.post('/jobs/:id/comments', async (req, res) => {
 	const note = req.body.note;
+	const { id } = req.params;
+	const job = await JobInfo.findById(id);
 	if (note) {
 		const now = new Date();
-
-		const newFieldnote = new Fieldnote({ note: note, date: date.format(now, 'YYYY/MM/DD'), time: date.format(now, 'H:mm A'), location: 'ABC Street' })
+		const newFieldnote = new Fieldnote({
+			number: job.number, note: note, date: date.format(now, 'YYYY/MM/DD'), time: date.format(now, 'hh:mm A'), location: 'ABC Street'
+		})
 		await newFieldnote.save();
 		console.log(newFieldnote)
 		const comments = await Fieldnote.find({})
-		res.render('commentPage', { comments })
+		res.render('comments', { comments, job })
 	} else {
 		const comments = await Fieldnote.find({})
-		res.render('commentPage', { comments })
+		res.render('comments', { comments, job })
 	}
+})
+
+app.get('/jobs/:id/comments/new', async (req, res) => {
+	const { id } = req.params
+	const job = await JobInfo.findById(id)
+	res.render('new', { job });
 })
 
 app.get('/comments/:id', async (req, res) => {
@@ -62,9 +72,6 @@ app.get('/comments/:id', async (req, res) => {
 	res.render('show', { comment, job })
 })
 
-app.get('/jobs/:id/comments/new', (req, res) => {
-	res.render('new');
-})
 
 app.get('/comments/:id/edit', async (req, res) => {
 	const { id } = req.params;
@@ -82,6 +89,39 @@ app.delete('/comments/:id', async (req, res) => {
 	const { id } = req.params;
 	await Fieldnote.findByIdAndDelete(id);
 	res.redirect('/comments');
+})
+
+app.get('/jobs/:id/survey', async (req, res) => {
+	const { id } = req.params;
+	const job = await JobInfo.findById(id);
+	const surveyNotes = await Surveynote.find({})
+	res.render('survey', { job, surveyNotes });
+})
+
+app.post('/jobs/:id/survey', async (req, res) => {
+	const { id } = req.params;
+	const job = await JobInfo.findById(id);
+	const { newNote } = req.body;
+	if (newNote) {
+		const newSurveyNote = await new Surveynote({
+			number: job.number,
+			point: newNote.point,
+			HI: newNote.foresight + newNote.elevation,
+			BS: newNote.backsight,
+			FS: newNote.foresight,
+			tPipe: 0,
+			invert: 0,
+			notes: ''
+		})
+		await newSurveyNote.save();
+		const surveyNotes = await Surveynote.find({})
+		console.log(surveyNotes)
+		res.redirect('survey', { job, surveyNotes })
+	} else {
+		const surveyNotes = await Surveynote.find({})
+		console.log(surveyNotes)
+		res.render('survey', { job, surveyNotes })
+	}
 })
 
 app.listen(PORT, () => {

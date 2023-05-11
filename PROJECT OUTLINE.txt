@@ -6,3 +6,20 @@ SELECT JOB [dropdown menu with all past and current jobs]
 // upon selection, open comments page for that DATE
 -COMMENTS
 show a list of the comment entries in chronological order
+JOB INFO
+-add job info including: 
+
+
+--survey
+1) take inputs for benchmark name and elevation, and foresight
+  calculate HI = BMe + FS
+  display to page
+
+  HI will be used for subsequent surveyNotes
+2) allow user inputs for each field
+    a) if (BS) {return HI = ELEV + BS} else {return HI = ELEV + FS}
+  POST inputs to same page {'/jobs/:id/survey(req, res) async
+  const newNote = new SurveyNote({inputs})
+  await newNote.save()
+  res.render(survey, {inputs})
+}

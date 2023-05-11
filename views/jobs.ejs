@@ -15,8 +15,16 @@
   <ul class="list-group">
     <% for(job of jobs){%>
       <a href="/jobs/<%=job._id%>/comments">
-        <li class="list-group-item list-group-item-action">
-          <%= job.name %>- <%= job.location %>
+        <li class="list-group-item list-group-item-action jobDiv">
+          <span class="jobItem">
+            <%= job.number %>
+          </span>
+          <span class="jobItem">
+            <%= job.name %>
+          </span>
+          <span class="jobItem">
+            <%= job.location %>
+          </span>
         </li>
       </a>
       <% }%>

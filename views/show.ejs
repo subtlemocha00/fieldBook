@@ -25,11 +25,14 @@
       </em>
     </div>
   </div>
-  <a href="/comments/<%= comment._id %>/edit" class="btn btn-outline-primary">EDIT COMMENT</a>
-  <a href="/jobs/<%= job._id %>/comments" class="btn btn-outline-success">ALL COMMENTS</a>
-  <form action="/comments/<%= comment._id %>?_method=DELETE" method="POST">
-    <button type="submit" class="btn btn-outline-warning">DELETE COMMENT</button>
-  </form>
+  <div class="buttonCont">
+    <a href="/comments/<%= comment._id %>/edit" class="btn btn-outline-primary">EDIT COMMENT</a>
+    <form action="/comments/<%= comment._id %>?_method=DELETE" method="POST">
+      <button type="submit" class="btn btn-outline-warning">DELETE COMMENT</button>
+    </form>
+    <a href="/jobs/<%= job._id %>/comments" class="btn btn-outline-success">ALL COMMENTS</a>
+    <a href="/jobs/<%= job._id %>/survey" class="btn btn-outline-info">SURVEY PAGE</a>
+  </div>
 </body>
 
 </html>

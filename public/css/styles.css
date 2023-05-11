@@ -1,7 +1,41 @@
+:root {
+  --color-item-div: #aedfff;
+}
+
 body {
   background-color: #F0F5F5;
 }
 
 a {
   text-decoration: none;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: left;
+}
+
+.jobDiv {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--color-item-div);
+}
+
+.jobItem {
+
+  padding: .5rem;
+  text-align: center;
+}
+
+@media (max-width: 341px) {
+  .jobItem {
+    font-size: 80%;
+  }
 }

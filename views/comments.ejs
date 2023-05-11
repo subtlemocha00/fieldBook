@@ -20,15 +20,17 @@
             <b>
               <%= comment.time %> -
             </b>
-            <em>
-              <%= comment.note %>
-            </em>
+            <span>
+              <em>
+                <%= comment.note %>
+              </em>
+            </span>
           </li>
         </a>
         <% } %>
           <% } %>
   </ul>
-  <a href="/comments/new" class="btn btn-outline-primary">ADD</a>
+  <a href="/jobs/<%= job._id %>/comments/new" class="btn btn-outline-primary">ADD</a>
   <a href="/jobs" class="btn btn-outline-primary">BACK TO JOBS</a>
 </body>
 
