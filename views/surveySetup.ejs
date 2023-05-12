@@ -23,23 +23,19 @@
           <th>FS</th>
           <th>Top of Pipe</th>
           <th>Invert Elevation</th>
-          <th>Notes</th>
+        </tr>
+        <tr>
+          <td><input id="benchmark" name="benchmark" type="text" placeholder="Benchmark Name"></td>
+          <td></td>
+          <td></td>
+          <td><input name="bmForesight" type="text" placeholder="Foresight"></td>
+          <td></td>
+          <td><input name="bmElevation" type="text" placeholder="Benchmark Elevation"></td>
+          <td></td>
         </tr>
       </thead>
-
-      <tbody>
-        <tr>
-          <td><input name="point" type="text"></td>
-          <td></td>
-          <td><input name="backsight" type="text"></td>
-          <td><input name="foresight" type="text"></td>
-          <td></td>
-          <td><input name="elevation" type="text"></td>
-        </tr>
-      </tbody>
     </table>
-    <a href="/jobs/<%= job._id %>/surveySetup" class="btn btn-outline-primary">SETUP</a>
-    <button class="btn btn-outline-primary" type="submit">ADD LINE</button>
+    <button class="btn btn-outline-primary" type="submit">CONFIRM</button>
   </form>
 
 

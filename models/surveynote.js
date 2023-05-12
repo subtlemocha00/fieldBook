@@ -6,8 +6,7 @@ const surveyNoteSchema = new mongoose.Schema({
   BS: Number,
   FS: Number,
   HI: Number,
-  elevation: Number,
-  notes: String,
+  elevation: Number
 })
 
 const Surveynote = mongoose.model('surveynote', surveyNoteSchema);
