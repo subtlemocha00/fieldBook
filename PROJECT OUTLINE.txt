@@ -23,3 +23,8 @@ JOB INFO
   await newNote.save()
   res.render(survey, {inputs})
 }
+
+-delete button for survey shots
+-only display the survey shots for a given date
+-add ability to peruse through past date surveys and field notes
+--date list within jobs

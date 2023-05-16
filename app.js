@@ -9,7 +9,7 @@ const date = require('date-and-time');
 const Fieldnote = require('./models/fieldnote');
 const Surveynote = require('./models/surveynote');
 const JobInfo = require('./models/jobInfo');
-const SurveyHeader = require('./models/surveyhead');
+const Surveyheader = require('./models/surveyhead');
 
 mongoose.connect('mongodb://127.0.0.1:27017/field-book')
 	.then(() => {
@@ -98,45 +98,50 @@ app.get('/jobs/:id/survey', async (req, res) => {
 	res.render('survey', { job, surveyNotes });
 })
 
+async function parseSurveyNote(job, { point, backsight, foresight }) {
+	const now = new Date();
+	const newSurveyNote = await new Surveynote({
+		number: job.number,
+		point: point,
+		hi: 150,
+		bs: +backsight,
+		fs: +foresight,
+		elevation: foresight >= 0 ? 150 - foresight : 150 - backsight,
+		date: date.format(now, 'YYYY/MM/DD')
+	})
+	await newSurveyNote.save();
+	// return { newSurveyNote };
+}
+
+async function parseSurveySetup(job, benchmark, backsight, foresight, elevation) {
+	const newSurveySetup = await new Surveyheader({
+		number: job.number,
+		benchmark: benchmark,
+		bs: +backsight,
+		fs: +foresight,
+		hi: (elevation + foresight),
+		elevation: +elevation,
+		date: date.format(now, 'YYYY/MM/DD')
+	})
+	await newSurveySetup.save();
+	console.log(newSurveySetup)
+}
+
 app.post('/jobs/:id/survey', async (req, res) => {
 	const { id } = req.params;
 	const job = await JobInfo.findById(id);
-	// figure out how to parse difference between header and notes
-	if (req.body.hasOwnProperty('invert')) {
-		const { newNote } = req.body;
+	if (req.body.hasOwnProperty('point')) {
+		await parseSurveyNote(job, req.body);
 		console.log(req.body)
-		if (newNote) {
-			const newSurveyNote = await new Surveynote({
-				number: job.number,
-				point: newNote.point,
-				HI: newNote.foresight + newNote.elevation,
-				BS: newNote.backsight,
-				FS: newNote.foresight,
-				tPipe: 0,
-				invert: 0,
-				notes: ''
-			})
-			// rewrite as a function to re-use
-			if (req.body.hasOwnProperty('elevation')) {
-				const { point, backsight, foresight, HI, elevation } = req.body;
-				console.log(surveySetup)
-				if (surveySetup) {
-					const newSurveySetup = await new SurveyHeader({
-						BM: point,
-						BS: backsight,
-						FS: foresight,
-						HI: elevation - foresight,
-						elevation: elevation
-					})
-					await newSurveySetup.save();
-				}
-				const surveyNotes = await Surveynote.find({})
-				res.redirect('survey', { job, surveyNotes })
-			} else {
-				const surveyNotes = await Surveynote.find({})
-				res.render('survey', { job, surveyNotes })
-			}
-		})
+	}
+	if (req.body.hasOwnProperty('benchmark')) {
+		// await parseSurveySetup(job, req.body);
+		console.log(req.body)
+	}
+	const surveyHeader = await Surveyheader.find({})
+	const surveyNotes = await Surveynote.find({})
+	res.render('survey', { job, surveyHeader, surveyNotes })
+})
 
 app.get('/jobs/:id/surveySetup', async (req, res) => {
 	const { id } = req.params;

@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const surveyNoteSchema = new mongoose.Schema({
   number: String,
   point: String,
-  BS: Number,
-  FS: Number,
-  HI: Number,
+  bs: Number,
+  fs: Number,
+  hi: Number,
   elevation: Number
 })
 

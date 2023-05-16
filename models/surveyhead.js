@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const surveyHeaderSchema = new mongoose.Schema({
   number: String,
-  BM: String,
+  benchmark: String,
   BS: Number,
   FS: Number,
   HI: Number,

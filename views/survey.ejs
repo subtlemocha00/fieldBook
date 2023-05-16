@@ -23,22 +23,42 @@
           <th>FS</th>
           <th>Top of Pipe</th>
           <th>Invert Elevation</th>
-          <th>Notes</th>
         </tr>
       </thead>
 
       <tbody>
-        <tr>
-          <td><input name="point" type="text"></td>
-          <td></td>
-          <td><input name="backsight" type="text"></td>
-          <td><input name="foresight" type="text"></td>
-          <td></td>
-          <td><input name="elevation" type="text"></td>
-        </tr>
+        <% for (note of surveyNotes) { %>
+          <tr>
+            <td>
+              <%= note.point %>
+            </td>
+            <td>
+              <%= note.hi %>
+            </td>
+            <td>
+              <%= note.bs %>
+            </td>
+            <td>
+              <%= note.fs %>
+            </td>
+            <td></td>
+            <td>
+              <%= note.elevation %>
+            </td>
+          </tr>
+          <% } %>
+            <tr>
+              <td><input name="point" type="text"></td>
+              <td></td>
+              <td><input name="backsight" type="text"></td>
+              <td><input name="foresight" type="text"></td>
+              <td></td>
+              <td></td>
+            </tr>
       </tbody>
     </table>
     <a href="/jobs/<%= job._id %>/surveySetup" class="btn btn-outline-primary">SETUP</a>
+    <a href="/jobs/<%= job._id %>/comments" class="btn btn-outline-primary">COMMENTS</a>
     <button class="btn btn-outline-primary" type="submit">ADD LINE</button>
   </form>
 

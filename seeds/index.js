@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const Fieldnote = require('../models/fieldnote');
 const JobInfo = require('../models/jobInfo');
+const Surveyhead = require('../models/surveyhead');
+const Surveynote = require('../models/surveynote');
 const notes = require('./fieldNoteSeeds');
 const jobs = require('./jobInfoSeeds');
 const surveyEntries = require('./surveySeeds');
-const Surveynote = require('../models/surveynote');
 
 mongoose.connect('mongodb://127.0.0.1:27017/field-book')
   .then(() => {
@@ -19,6 +20,7 @@ const seedDb = async () => {
   await JobInfo.deleteMany({});
   await Fieldnote.deleteMany({});
   await Surveynote.deleteMany({});
+  await Surveyhead.deleteMany({});
   for (note of notes) {
     const newNote = new Fieldnote(note);
     await newNote.save();

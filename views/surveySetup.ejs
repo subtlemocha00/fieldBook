@@ -28,14 +28,16 @@
           <td><input id="benchmark" name="benchmark" type="text" placeholder="Benchmark Name"></td>
           <td></td>
           <td></td>
-          <td><input name="bmForesight" type="text" placeholder="Foresight"></td>
+          <td><input name="foresight" type="text" placeholder="Foresight"></td>
           <td></td>
-          <td><input name="bmElevation" type="text" placeholder="Benchmark Elevation"></td>
+          <td><input name="elevation" type="text" placeholder="Benchmark Elevation"></td>
           <td></td>
         </tr>
       </thead>
     </table>
     <button class="btn btn-outline-primary" type="submit">CONFIRM</button>
+    <a href="/jobs/<%= job._id %>/survey" class="btn btn-outline-primary">BACK TO SURVEY</a>
+    <a href="/jobs/<%= job._id %>/comments" class="btn btn-outline-primary">BACK TO COMMENTS</a>
   </form>
 
 
