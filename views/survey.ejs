@@ -27,34 +27,53 @@
       </thead>
 
       <tbody>
+        <tr>
+          <td>
+            <%= surveyHeader.benchmark %>
+          </td>
+          <td>
+            <%= surveyHeader.hi %>
+          </td>
+          <td>
+          </td>
+          <td>
+            <%= surveyHeader.fs %>
+          </td>
+          <td></td>
+          <td>
+            <%= surveyHeader.elevation %>
+          </td>
+        </tr>
         <% for (note of surveyNotes) { %>
-          <tr>
-            <td>
-              <%= note.point %>
-            </td>
-            <td>
-              <%= note.hi %>
-            </td>
-            <td>
-              <%= note.bs %>
-            </td>
-            <td>
-              <%= note.fs %>
-            </td>
-            <td></td>
-            <td>
-              <%= note.elevation %>
-            </td>
-          </tr>
-          <% } %>
+          <% if (note.number===job.number) { %>
             <tr>
-              <td><input name="point" type="text"></td>
+              <td>
+                <%= note.point %>
+              </td>
+              <td>
+                <%= note.hi %>
+              </td>
+              <td>
+                <%= note.bs %>
+              </td>
+              <td>
+                <%= note.fs %>
+              </td>
               <td></td>
-              <td><input name="backsight" type="text"></td>
-              <td><input name="foresight" type="text"></td>
-              <td></td>
-              <td></td>
+              <td>
+                <%= note.elevation %>
+              </td>
             </tr>
+            <% } %>
+              <% } %>
+                <tr>
+                  <td><input name="point" type="text"></td>
+                  <td></td>
+                  <td><input name="backsight" type="text"></td>
+                  <td><input name="foresight" type="text"></td>
+                  <td></td>
+                  <td></td>
+                </tr>
       </tbody>
     </table>
     <a href="/jobs/<%= job._id %>/surveySetup" class="btn btn-outline-primary">SETUP</a>

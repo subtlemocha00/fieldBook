@@ -8,7 +8,7 @@ const date = require('date-and-time');
 
 const Fieldnote = require('./models/fieldnote');
 const Surveynote = require('./models/surveynote');
-const JobInfo = require('./models/jobInfo');
+const JobInfo = require('jobInfo');
 const Surveyheader = require('./models/surveyhead');
 
 mongoose.connect('mongodb://127.0.0.1:27017/field-book')
@@ -94,8 +94,9 @@ app.delete('/comments/:id', async (req, res) => {
 app.get('/jobs/:id/survey', async (req, res) => {
 	const { id } = req.params;
 	const job = await JobInfo.findById(id);
+	const surveyHeader = await Surveyheader.findOne({})
 	const surveyNotes = await Surveynote.find({})
-	res.render('survey', { job, surveyNotes });
+	res.render('survey', { job, surveyNotes, surveyHeader });
 })
 
 async function parseSurveyNote(job, { point, backsight, foresight }) {
@@ -110,10 +111,10 @@ async function parseSurveyNote(job, { point, backsight, foresight }) {
 		date: date.format(now, 'YYYY/MM/DD')
 	})
 	await newSurveyNote.save();
-	// return { newSurveyNote };
 }
 
-async function parseSurveySetup(job, benchmark, backsight, foresight, elevation) {
+async function parseSurveySetup(job, { benchmark, backsight, foresight, elevation }) {
+	const now = new Date();
 	const newSurveySetup = await new Surveyheader({
 		number: job.number,
 		benchmark: benchmark,
@@ -133,14 +134,19 @@ app.post('/jobs/:id/survey', async (req, res) => {
 	if (req.body.hasOwnProperty('point')) {
 		await parseSurveyNote(job, req.body);
 		console.log(req.body)
+		const surveyNotes = await Surveynote.find({})
+		const surveyHeader = await Surveyheader.findOne({})
+		// const surveyHeader = { number: job.number, benchmark: N / A, bs: 0, fs: 0, hi: 0, elevation: 0, date: 'Today' }
+		res.render('survey', { job, surveyHeader, surveyNotes })
 	}
 	if (req.body.hasOwnProperty('benchmark')) {
-		// await parseSurveySetup(job, req.body);
+		await parseSurveySetup(job, req.body);
 		console.log(req.body)
+		const surveyHeader = await Surveyheader.find({})
+		console.log(surveyHeader)
+		const surveyNotes = await Surveynote.find({})
+		res.render('survey', { job, surveyHeader, surveyNotes })
 	}
-	const surveyHeader = await Surveyheader.find({})
-	const surveyNotes = await Surveynote.find({})
-	res.render('survey', { job, surveyHeader, surveyNotes })
 })
 
 app.get('/jobs/:id/surveySetup', async (req, res) => {

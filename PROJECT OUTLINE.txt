@@ -28,3 +28,9 @@ JOB INFO
 -only display the survey shots for a given date
 -add ability to peruse through past date surveys and field notes
 --date list within jobs
+
+
+
+
+ADD ASAP!
+if(setupHeader) {change SETUP button to EDIT SETUP}

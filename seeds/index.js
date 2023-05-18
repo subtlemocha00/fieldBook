@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 const Fieldnote = require('../models/fieldnote');
-const JobInfo = require('../models/jobInfo');
+const JobInfo = require('jobInfo');
 const Surveyhead = require('../models/surveyhead');
 const Surveynote = require('../models/surveynote');
 const notes = require('./fieldNoteSeeds');
 const jobs = require('./jobInfoSeeds');
 const surveyEntries = require('./surveySeeds');
+const surveyHeaders = require('./headerSeeds');
 
 mongoose.connect('mongodb://127.0.0.1:27017/field-book')
   .then(() => {
@@ -24,6 +25,10 @@ const seedDb = async () => {
   for (note of notes) {
     const newNote = new Fieldnote(note);
     await newNote.save();
+  }
+  for (header of surveyHeaders) {
+    const newHeader = new Surveyhead(header)
+    await newHeader.save();
   }
   for (job of jobs) {
     const newJob = new JobInfo(job)
